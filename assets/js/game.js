@@ -8,7 +8,6 @@ var enemyHealth = 5;
 var enemyAttack = 12;
 
 var fight = function(enemyName) {
-    debugger;
     while(enemyHealth > 0 && enemyHealth > 0) {
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
         if (promptFight == "skip" || promptFight == 'SKIP') {
@@ -23,7 +22,7 @@ var fight = function(enemyName) {
 
         enemyHealth = enemyHealth - playerAttack;
         console.log(playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining.");
-        // check enemy's health
+
         if (enemyHealth <= 0) {
             window.alert(enemyName + " is defeated!");
             playerMoney = playerMoney + 20;
@@ -32,9 +31,10 @@ var fight = function(enemyName) {
         else {
             window.alert(enemyName + " still has "+ enemyHealth + " health left.");
         }
+
         playerHealth = playerHealth - enemyAttack;
-        // check player's health
         console.log(enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
+
         if (playerHealth <=0) {
             window.alert(playerName + " is defeated.");
             break;
@@ -48,17 +48,16 @@ var fight = function(enemyName) {
 var startGame  = function() {
     var playerHealth = 100;
     for(var i=0; i<enemyNames.length; i++){
-        debugger;
         if (playerHealth>0) {
             window.alert("Welcome to Robot Gladiators! Round " + (i+1));
             var pickedEnemyName = enemyNames[i];
             enemyHealth = 50;
+            fight(pickedEnemyName);
             if (playerHealth > 0 && i < enemyNames.length - 1) {
                 var storeConfirm = window.confirm("The fight is over, visit the store before starting the next round?")
                 if (storeConfirm){
                     shop();
                 }
-               fight(pickedEnemyName);
             }
         }
         else {
@@ -66,6 +65,7 @@ var startGame  = function() {
             break;
         }
     }
+    
     endGame();
 }
 
