@@ -1,6 +1,6 @@
 var playerName = window.prompt("what is your robot's name?");
 var playerHealth = 100;
-var playerAttack = 10;
+var playerAttack = 100;
 var playerMoney = 10;
 
 var enemyNames = ["Roberto", "Amy Andriod", "Robo Trumble"];
@@ -47,14 +47,19 @@ var fight = function(enemyName) {
 
 var startGame  = function() {
     var playerHealth = 100;
-    var playerAttack = 10;
-    var playerMoney = 10;
     for(var i=0; i<enemyNames.length; i++){
+        debugger;
         if (playerHealth>0) {
             window.alert("Welcome to Robot Gladiators! Round " + (i+1));
             var pickedEnemyName = enemyNames[i];
             enemyHealth = 50;
-            fight(pickedEnemyName)
+            if (playerHealth > 0 && i < enemyNames.length - 1) {
+                var storeConfirm = window.confirm("The fight is over, visit the store before starting the next round?")
+                if (storeConfirm){
+                    shop();
+                }
+               fight(pickedEnemyName);
+            }
         }
         else {
             window.alert("You have lost your robot battle! Game Over!");
@@ -84,14 +89,45 @@ var endGame = function() {
 
 }
 
+var shop = function() {
+    var shopOptionPrompt = window.prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.")
+    switch(shopOptionPrompt) {
+        case "REFILL":
+        case "refill":
+            if (playerMoney >= 7){
+                window.alert("Refilling player's health by 20 for 7 dollars.");
+                playerHealth = playerHealth + 20;
+                playerMoney = playerMoney - 7;
+                break;
+            }
+            else {
+                window.alert("You don't have enough money!");
+                break;
+            }
+        case "UPGRADE":
+        case "upgrade":
+            if (playerMoney >= 7) {
+                window.alert("Upgrading player's attack by 6 for 7 dollars.");
+                playerAttack = playerAttack + 6;
+                playerMoney = playerMoney - 7;
+                break;
+            }
+            else {
+                window.alert("You don't have enough money!");
+                break;
+            }
+        case "LEAVE":
+        case "leave":
+            window.alert("Leaving the store.");
+            break;
+        default:
+            window.alert("You did not pick a valid option. Try again.");
+            shop();
+            break;
+    }
+
+}
+
 startGame();
 
-// startGame()
-// endGame()
-// shop()
 
-//would you like to play again? feature
-    // after the for loop, break to the prompt and conditionally send it back to loop
-
-//refill, up attack, leave store feature
-    // after each enemy, give the option to change player health, attack, money
