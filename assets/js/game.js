@@ -8,6 +8,7 @@ var enemyHealth = 5;
 var enemyAttack = 12;
 
 var fight = function(enemyName) {
+    debugger;
     while(enemyHealth > 0 && enemyHealth > 0) {
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
         if (promptFight == "skip" || promptFight == 'SKIP') {
@@ -44,24 +45,53 @@ var fight = function(enemyName) {
         }
     };
 
-for(var i=0; i<enemyNames.length; i++){
-    if (playerHealth>0) {
-        window.alert("Welcome to Robot Gladiators! Round " + (i+1));
-        var pickedEnemyName = enemyNames[i];
-        enemyHealth = 50;
-        debugger;
-        fight(pickedEnemyName)
+var startGame  = function() {
+    var playerHealth = 100;
+    var playerAttack = 10;
+    var playerMoney = 10;
+    for(var i=0; i<enemyNames.length; i++){
+        if (playerHealth>0) {
+            window.alert("Welcome to Robot Gladiators! Round " + (i+1));
+            var pickedEnemyName = enemyNames[i];
+            enemyHealth = 50;
+            fight(pickedEnemyName)
+        }
+        else {
+            window.alert("You have lost your robot battle! Game Over!");
+            break;
+        }
     }
-    else {
-        window.alert("You have lost your robot battle! Game Over!");
-        break;
-    }
+    endGame();
 }
 
-// Game States
-// "WIN" - Player robot has defeated all enemy-robots
-//    * Fight all enemy-robots
+var endGame = function() {
+    window.alert("The game has now ended. Let's see how you did!");
+    if (playerHealth>0) {
+        window.alert("Great job, you've survived the game! You now have a score of " + playerMoney + ".");
+    }
+    else {
+        window.alert("You've lost your robot in battle.");
+    }
+    var playAgainConfirm = window.confirm("Would you like to play again?");
 
-// for each robot in array
-// if robot health > 0
-//      fight
+    if (playAgainConfirm) {
+      // restart the game
+      startGame();
+    }
+    else {
+      window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+    }
+
+}
+
+startGame();
+
+// startGame()
+// endGame()
+// shop()
+
+//would you like to play again? feature
+    // after the for loop, break to the prompt and conditionally send it back to loop
+
+//refill, up attack, leave store feature
+    // after each enemy, give the option to change player health, attack, money
